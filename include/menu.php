@@ -70,7 +70,7 @@ if (!isset($_SESSION["mikhmon"])) {
   } elseif ($minterface == "traffic-monitor") {
     $strafficmonitor = "active";
     $mpage = $_traffic_monitor;  
-  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $editipbinding != "" || $updateipbinding != "") {
     $sipbind = "active";
     $mpage = $_ip_bindings;
     $ibmenu = "menu-open";
@@ -386,4 +386,3 @@ echo '<div class="main-container">';
   echo '<div class="main-container" style="display:none">';
 }
 ?>
-
