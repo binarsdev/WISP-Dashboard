@@ -93,6 +93,11 @@ if (!isset($_SESSION["mikhmon"])) {
   $disablehotspotuser = $_GET['disable-hotspot-user'];
   $enableipbinding = $_GET['enable-ip-binding'];
   $disableipbinding = $_GET['disable-ip-binding'];
+  $updateipbinding = $_GET['update-ip-binding'];
+  $editipbinding = $_GET['edit-ip-binding'];
+  $setbindingmac = $_GET['set-binding-mac'];
+  $setbindingip = $_GET['set-binding-ip'];
+  $setbindingtype = $_GET['set-binding-type'];
   $userprofile = $_GET['user-profile'];
   $userprofilebyname = $_GET['user-profile'];
   $sys = $_GET['system'];
@@ -379,7 +384,7 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // remove enable disable ipbinding
-  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
     include_once('./process/pipbinding.php');
