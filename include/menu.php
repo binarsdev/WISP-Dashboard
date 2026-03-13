@@ -33,6 +33,7 @@ if (!isset($_SESSION["mikhmon"])) {
     $squick = "active";
     $mpage = $_quick_print;   
   } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $hotspot == "import-users" || $removehotspotuserbycomment != "" || $updatehotspotusercommentgroup != "" || $updatehotspotusertimelimitgroup != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
+  } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $removehotspotuserbycomment != "" || $updatehotspotusercommentgroup != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
     $susersl = "active";
     $susers = "active";
     $mpage = $_users;

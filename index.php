@@ -92,6 +92,7 @@ if (!isset($_SESSION["mikhmon"])) {
   $updatehotspotusertimelimitgroup = $_GET['update-hotspot-user-timelimit-group'];
   $newcomment = $_GET['new-comment'];
   $newtimelimit = $_GET['new-timelimit'];
+  $newcomment = $_GET['new-comment'];
   $removeexpiredhotspotuser = $_GET['remove-hotspot-user-expired'];
   $enablehotspotuser = $_GET['enable-hotspot-user'];
   $disablehotspotuser = $_GET['disable-hotspot-user'];
