@@ -89,6 +89,9 @@ if (!isset($_SESSION["mikhmon"])) {
   $resethotspotuser = $_GET['reset-hotspot-user'];
   $removehotspotuserbycomment = $_GET['remove-hotspot-user-by-comment'];
   $updatehotspotusercommentgroup = $_GET['update-hotspot-user-comment-group'];
+  $updatehotspotusertimelimitgroup = $_GET['update-hotspot-user-timelimit-group'];
+  $newcomment = $_GET['new-comment'];
+  $newtimelimit = $_GET['new-timelimit'];
   $newcomment = $_GET['new-comment'];
   $removeexpiredhotspotuser = $_GET['remove-hotspot-user-expired'];
   $enablehotspotuser = $_GET['enable-hotspot-user'];
@@ -231,6 +234,11 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./hotspot/exportusers.php');
   }
 
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
 // quick print
   elseif ($hotspot == "quick-print") {
     include_once('./hotspot/quickprint.php');
@@ -282,6 +290,13 @@ elseif ($hotspot == "list-quick-print") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
     include_once('./process/updatehotspotusercommentgroup.php');
+  }
+
+// update hotspot user timelimit by group
+  elseif ($updatehotspotusertimelimitgroup != "") {
+    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
+
+    include_once('./process/updatehotspotusertimelimitgroup.php');
   }
 
 // remove expired hotspot user

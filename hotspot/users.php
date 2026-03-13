@@ -87,6 +87,7 @@ if (!isset($_SESSION["mikhmon"])) {
          &nbsp; | &nbsp; <a href="./?hotspot-user=add&session=<?= $session; ?>" title="Add User"><i class="fa fa-user-plus"></i> <?= $_add ?></a>
         &nbsp; | &nbsp; <a href="./?hotspot-user=generate&session=<?= $session; ?>" title="Generate User"><i class="fa fa-users"></i> <?= $_generate ?></a>
          &nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=script" title="Download User List as Mikrotik Script"><i class="fa fa-download"></i> Script</a>&nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=csv" title="Download User List as CSV"><i class="fa fa-download"></i> CSV</a>
+         &nbsp; | &nbsp; <a href="./?hotspot=import-users&session=<?= $session; ?>" title="Import Users from CSV"><i class="fa fa-upload"></i> Import</a>
         </span>  &nbsp;
         <small id="loader" style="display: none;" ><i><i class='fa fa-circle-o-notch fa-spin'></i> <?= $_processing ?> </i></small>
     </h3>
@@ -147,6 +148,7 @@ if (!isset($_SESSION["mikhmon"])) {
     <?php if ($comm != "") { ?>
   <button class="btn bg-red" onclick="if(confirm('Are you sure to delete username by comment (<?= $comm; ?>)?')){loadpage('./?remove-hotspot-user-by-comment=<?= $comm; ?>&session=<?= $session; ?>');loader();}else{}" title="Remove user by comment <?= $comm; ?>">  <i class="fa fa-trash"></i> <?= $_by_comment ?></button>
   <button class="btn bg-warning" onclick='editGroupComment(<?= json_encode($comm); ?>)' title="Edit user comment group <?= $comm; ?>"><i class="fa fa-pencil"></i> Edit Group Comment</button>
+  <button class="btn bg-info" onclick='editGroupTimeLimit(<?= json_encode($comm); ?>)' title="Edit time limit by comment group <?= $comm; ?>"><i class="fa fa-clock-o"></i> Edit Group Time Limit</button>
     <?php ; }else if ($exp == "1"){ ?>
   <button class="btn bg-red" onclick="if(confirm('Are you sure to delete users?')){loadpage('./?remove-hotspot-user-expired=1&session=<?= $session; ?>');loader();}else{}" title="Remove user expired">  <i class="fa fa-trash"></i> Expired Users</button>
       <?php } ?>
@@ -165,6 +167,23 @@ if (!isset($_SESSION["mikhmon"])) {
 
     var updateUrl = './?update-hotspot-user-comment-group=1&comment=' + encodeURIComponent(oldComment) + '&new-comment=' + encodeURIComponent(newComment) + '&session=<?= $session; ?>';
     loadpage(updateUrl);
+    loader();
+    }
+
+    function editGroupTimeLimit(groupComment){
+    var newTimeLimit = prompt('New time limit for this group (ex: 30m, 6h, 1d):', '6h');
+    if (newTimeLimit === null) {
+      return;
+    }
+
+    newTimeLimit = newTimeLimit.trim();
+    if (newTimeLimit === "") {
+      alert('Time limit cannot be empty');
+      return;
+    }
+
+    var updateTlUrl = './?update-hotspot-user-timelimit-group=1&comment=' + encodeURIComponent(groupComment) + '&new-timelimit=' + encodeURIComponent(newTimeLimit) + '&session=<?= $session; ?>';
+    loadpage(updateTlUrl);
     loader();
     }
 
