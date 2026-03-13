@@ -146,10 +146,28 @@ if (!isset($_SESSION["mikhmon"])) {
   <div class="col-6">
     <?php if ($comm != "") { ?>
   <button class="btn bg-red" onclick="if(confirm('Are you sure to delete username by comment (<?= $comm; ?>)?')){loadpage('./?remove-hotspot-user-by-comment=<?= $comm; ?>&session=<?= $session; ?>');loader();}else{}" title="Remove user by comment <?= $comm; ?>">  <i class="fa fa-trash"></i> <?= $_by_comment ?></button>
+  <button class="btn bg-warning" onclick='editGroupComment(<?= json_encode($comm); ?>)' title="Edit user comment group <?= $comm; ?>"><i class="fa fa-pencil"></i> Edit Group Comment</button>
     <?php ; }else if ($exp == "1"){ ?>
   <button class="btn bg-red" onclick="if(confirm('Are you sure to delete users?')){loadpage('./?remove-hotspot-user-expired=1&session=<?= $session; ?>');loader();}else{}" title="Remove user expired">  <i class="fa fa-trash"></i> Expired Users</button>
       <?php } ?>
   <script>
+    function editGroupComment(oldComment){
+    var newComment = prompt('New comment for this group:', oldComment);
+    if (newComment === null) {
+      return;
+    }
+
+    newComment = newComment.trim();
+    if (newComment === "") {
+      alert('Comment cannot be empty');
+      return;
+    }
+
+    var updateUrl = './?update-hotspot-user-comment-group=1&comment=' + encodeURIComponent(oldComment) + '&new-comment=' + encodeURIComponent(newComment) + '&session=<?= $session; ?>';
+    loadpage(updateUrl);
+    loader();
+    }
+
     function printV(a,b){
     var comm = document.getElementById('comment').value;
     var url = "./voucher/print.php?id="+comm+"&"+a+"="+b+"&session=<?= $session; ?>";

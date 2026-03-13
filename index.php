@@ -88,11 +88,18 @@ if (!isset($_SESSION["mikhmon"])) {
   $removeuserprofile = $_GET['remove-user-profile'];
   $resethotspotuser = $_GET['reset-hotspot-user'];
   $removehotspotuserbycomment = $_GET['remove-hotspot-user-by-comment'];
+  $updatehotspotusercommentgroup = $_GET['update-hotspot-user-comment-group'];
+  $newcomment = $_GET['new-comment'];
   $removeexpiredhotspotuser = $_GET['remove-hotspot-user-expired'];
   $enablehotspotuser = $_GET['enable-hotspot-user'];
   $disablehotspotuser = $_GET['disable-hotspot-user'];
   $enableipbinding = $_GET['enable-ip-binding'];
   $disableipbinding = $_GET['disable-ip-binding'];
+  $updateipbinding = $_GET['update-ip-binding'];
+  $editipbinding = $_GET['edit-ip-binding'];
+  $setbindingmac = $_GET['set-binding-mac'];
+  $setbindingip = $_GET['set-binding-ip'];
+  $setbindingtype = $_GET['set-binding-type'];
   $userprofile = $_GET['user-profile'];
   $userprofilebyname = $_GET['user-profile'];
   $sys = $_GET['system'];
@@ -270,6 +277,13 @@ elseif ($hotspot == "list-quick-print") {
     include_once('./process/removehotspotuserbycomment.php');
   }
 
+// update hotspot user comment by group
+  elseif ($updatehotspotusercommentgroup != "") {
+    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
+
+    include_once('./process/updatehotspotusercommentgroup.php');
+  }
+
 // remove expired hotspot user
 elseif ($removeexpiredhotspotuser != "") {
   echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
@@ -379,7 +393,7 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // remove enable disable ipbinding
-  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
     include_once('./process/pipbinding.php');

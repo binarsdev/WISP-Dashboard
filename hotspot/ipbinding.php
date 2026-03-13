@@ -28,6 +28,14 @@ if (!isset($_SESSION["mikhmon"])) {
 	$countbinding = $API->comm("/ip/hotspot/ip-binding/print", array(
 		"count-only" => "",
 	));
+
+	$editbinding = array();
+	if ($editipbinding != "") {
+		$geteditbinding = $API->comm("/ip/hotspot/ip-binding/print", array(
+			"?.id" => "$editipbinding",
+		));
+		$editbinding = $geteditbinding[0];
+	}
 }
 
 ?>
@@ -47,6 +55,37 @@ if ($countbinding < 2) {
     </h3>
 </div>
 <div class="card-body">	   
+<?php if ($editipbinding != "" && $editbinding != "") { ?>
+<div class="box-bordered pd-10 mr-b-10">
+	<form action="./" method="get">
+		<input type="hidden" name="session" value="<?= $session; ?>">
+		<input type="hidden" name="update-ip-binding" value="<?= $editbinding['.id']; ?>">
+		<div class="row">
+			<div class="col-12 col-md-3 mr-b-5">
+				<label>MAC Address</label>
+				<input type="text" name="set-binding-mac" class="form-control" value="<?= $editbinding['mac-address']; ?>" required>
+			</div>
+			<div class="col-12 col-md-3 mr-b-5">
+				<label>Address</label>
+				<input type="text" name="set-binding-ip" class="form-control" value="<?= $editbinding['address']; ?>" required>
+			</div>
+			<div class="col-12 col-md-3 mr-b-5">
+				<label>Type</label>
+				<select name="set-binding-type" class="form-control" required>
+					<option value="regular" <?= $editbinding['type'] == "regular" ? "selected" : ""; ?>>regular</option>
+					<option value="bypassed" <?= $editbinding['type'] == "bypassed" ? "selected" : ""; ?>>bypassed</option>
+					<option value="blocked" <?= $editbinding['type'] == "blocked" ? "selected" : ""; ?>>blocked</option>
+				</select>
+			</div>
+			<div class="col-12 col-md-3 mr-b-5">
+				<label>Action</label><br>
+				<button class="btn bg-success" type="submit"><i class="fa fa-save"></i> Save</button>
+				<a class="btn bg-warning" href="./?hotspot=ipbinding&session=<?= $session; ?>"><i class="fa fa-times"></i> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>
+<?php } ?>
 <div class="w-6">
     <input id="filterTable" type="text" class="form-control" placeholder="Search..">
   </div>
@@ -61,6 +100,7 @@ if ($countbinding < 2) {
     <th class="pointer" title="Click to sort"><i class="fa fa-sort"></i> Address</th>
     <th class="pointer" title="Click to sort"><i class="fa fa-sort"></i> To Address</th>
     <th class="pointer" title="Click to sort"><i class="fa fa-sort"></i> Server</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody> 
@@ -96,9 +136,12 @@ for ($i = 0; $i < $TotalReg; $i++) {
 		echo "</td>";
 		echo "<td>" . $commt . "</td>";
 		echo "<td>" . $maca . "</td>";
-		echo "<td>" . $addr . "</a></td>";
+		echo "<td>" . $addr . "</td>";
 		echo "<td>" . $toaddr . "</td>";
 		echo "<td>" . $server . "</td>";
+		echo "<td style='text-align:center;'>";
+		echo "<a class='btn btn-sm' title='Edit Binding " . $maca . "' href='./?hotspot=ipbinding&edit-ip-binding=" . $id . "&session=" . $session . "'><i class='fa fa-edit'></i></a>";
+		echo "</td>";
 		echo "</tr>";
 	}
 	?>
