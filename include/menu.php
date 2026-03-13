@@ -32,7 +32,7 @@ if (!isset($_SESSION["mikhmon"])) {
   } elseif ($hotspot == "quick-print" || $hotspot == "list-quick-print") {
     $squick = "active";
     $mpage = $_quick_print;   
-  } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $removehotspotuserbycomment != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
+  } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $hotspot == "import-users" || $removehotspotuserbycomment != "" || $updatehotspotusercommentgroup != "" || $updatehotspotusertimelimitgroup != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
     $susersl = "active";
     $susers = "active";
     $mpage = $_users;
@@ -70,7 +70,7 @@ if (!isset($_SESSION["mikhmon"])) {
   } elseif ($minterface == "traffic-monitor") {
     $strafficmonitor = "active";
     $mpage = $_traffic_monitor;  
-  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $editipbinding != "" || $updateipbinding != "") {
     $sipbind = "active";
     $mpage = $_ip_bindings;
     $ibmenu = "menu-open";
@@ -386,4 +386,3 @@ echo '<div class="main-container">';
   echo '<div class="main-container" style="display:none">';
 }
 ?>
-

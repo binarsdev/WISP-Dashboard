@@ -87,3 +87,20 @@ elseif ($disableipbinding != "") {
 
 	echo "<script>window.location='./?hotspot=ipbinding&session=" . $session . "'</script>";
 }
+
+// update ip binding
+elseif ($updateipbinding != "") {
+	$bindingtype = "regular";
+	if ($setbindingtype == "blocked" || $setbindingtype == "bypassed" || $setbindingtype == "regular") {
+		$bindingtype = $setbindingtype;
+	}
+
+	$API->comm("/ip/hotspot/ip-binding/set", array(
+		".id" => "$updateipbinding",
+		"mac-address" => "$setbindingmac",
+		"address" => "$setbindingip",
+		"type" => "$bindingtype",
+	));
+
+	echo "<script>window.location='./?hotspot=ipbinding&session=" . $session . "'</script>";
+}
