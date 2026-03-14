@@ -238,6 +238,16 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./hotspot/importusers.php');
   }
 
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
 // quick print
   elseif ($hotspot == "quick-print") {
     include_once('./hotspot/quickprint.php');
@@ -407,6 +417,7 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // remove enable disable ipbinding
+  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
   elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
