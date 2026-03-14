@@ -102,22 +102,6 @@ if (!isset($_SESSION["mikhmon"])) {
   $setbindingmac = $_GET['set-binding-mac'];
   $setbindingip = $_GET['set-binding-ip'];
   $setbindingtype = $_GET['set-binding-type'];
-  $removehotspotuserbycomment = $_GET['remove-hotspot-user-by-comment'];
-  $updatehotspotusercommentgroup = $_GET['update-hotspot-user-comment-group'];
-  $updatehotspotusertimelimitgroup = $_GET['update-hotspot-user-timelimit-group'];
-  $newcomment = $_GET['new-comment'];
-  $newtimelimit = $_GET['new-timelimit'];
-  $newcomment = $_GET['new-comment'];
-  $removeexpiredhotspotuser = $_GET['remove-hotspot-user-expired'];
-  $enablehotspotuser = $_GET['enable-hotspot-user'];
-  $disablehotspotuser = $_GET['disable-hotspot-user'];
-  $enableipbinding = $_GET['enable-ip-binding'];
-  $disableipbinding = $_GET['disable-ip-binding'];
-  $updateipbinding = $_GET['update-ip-binding'];
-  $editipbinding = $_GET['edit-ip-binding'];
-  $setbindingmac = $_GET['set-binding-mac'];
-  $setbindingip = $_GET['set-binding-ip'];
-  $setbindingtype = $_GET['set-binding-type'];
   $userprofile = $_GET['user-profile'];
   $userprofilebyname = $_GET['user-profile'];
   $sys = $_GET['system'];
@@ -259,15 +243,20 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./hotspot/importusers.php');
   }
 
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
 // quick print
   elseif ($hotspot == "quick-print") {
     include_once('./hotspot/quickprint.php');
   }
 
 // quick print
-elseif ($hotspot == "list-quick-print") {
-  include_once('./hotspot/listquickprint.php');
-}  
+  elseif ($hotspot == "list-quick-print") {
+    include_once('./hotspot/listquickprint.php');
+  }
 
 // add hotspot user
   elseif ($hotspotuser == "add") {
@@ -299,28 +288,6 @@ elseif ($hotspot == "list-quick-print") {
   }
 
 // remove hotspot user by comment
-  elseif ($removehotspotuserbycomment != "") {
-    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
-
-    include_once('./process/removehotspotuserbycomment.php');
-  }
-
-// update hotspot user comment by group
-  elseif ($updatehotspotusercommentgroup != "") {
-    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
-
-    include_once('./process/updatehotspotusercommentgroup.php');
-  }
-
-// update hotspot user timelimit by group
-  elseif ($updatehotspotusertimelimitgroup != "") {
-    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
-
-    include_once('./process/updatehotspotusertimelimitgroup.php');
-  }
-
-// remove expired hotspot user
-elseif ($removeexpiredhotspotuser != "") {
   elseif ($removehotspotuserbycomment != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
