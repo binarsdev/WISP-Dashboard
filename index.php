@@ -248,6 +248,11 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./hotspot/importusers.php');
   }
 
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
 // quick print
   elseif ($hotspot == "quick-print") {
     include_once('./hotspot/quickprint.php');
@@ -452,14 +457,14 @@ elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding !=
   }
 
 // selling
-elseif ($report == "resume-report") {
-  include_once('./report/resumereport.php');
-}
+  elseif ($report == "resume-report") {
+    include_once('./report/resumereport.php');
+  }
 
 // selling
-elseif ($report == "export") {
-  include_once('./report/export.php');
-}
+  elseif ($report == "export") {
+    include_once('./report/export.php');
+  }
 
 // selling
   elseif ($removereport != "") {
@@ -502,9 +507,9 @@ elseif ($report == "export") {
   }
 
 // add ppp profile
-elseif ($ppp == "edit-profile") {
-  include_once('./ppp/profilebyname.php');
-}
+  elseif ($ppp == "edit-profile") {
+    include_once('./ppp/profilebyname.php');
+  }
 // remove enable disable profile
   elseif ($removepprofile != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
