@@ -22,6 +22,42 @@ ini_set('max_execution_time', 300);
 if (!isset($_SESSION["mikhmon"])) {
   header("Location:../admin.php?id=login");
 } else {
+  function parseMikhmonScriptLine($line)
+  {
+    $line = trim($line);
+    if ($line == "" || strpos($line, "add") !== 0) {
+      return false;
+    }
+
+    $result = array(
+      "name" => "",
+      "password" => "",
+      "profile" => "",
+      "limit-uptime" => "",
+      "limit-bytes-total" => "",
+      "comment" => "",
+    );
+
+    preg_match_all('/([a-zA-Z\-]+)="([^"]*)"/', $line, $matches, PREG_SET_ORDER);
+    if (!is_array($matches) || count($matches) == 0) {
+      return false;
+    }
+
+    foreach ($matches as $match) {
+      $key = trim($match[1]);
+      $value = trim($match[2]);
+      if (isset($result[$key])) {
+        $result[$key] = $value;
+      }
+    }
+
+    if ($result["name"] == "" || $result["profile"] == "") {
+      return false;
+    }
+
+    return $result;
+  }
+
   $imported = 0;
   $skipped = 0;
   $message = "";
@@ -45,17 +81,31 @@ if (!isset($_SESSION["mikhmon"])) {
       }
 
       while (($row = fgetcsv($handle)) !== false) {
-        if (count($row) < 3) {
-          $skipped++;
-          continue;
-        }
+        $uname = "";
+        $upass = "";
+        $uprofile = "";
+        $utimelimit = "";
+        $udatalimit = "";
+        $ucomment = "";
 
-        $uname = trim($row[0]);
-        $upass = trim($row[1]);
-        $uprofile = trim($row[2]);
-        $utimelimit = trim($row[3]);
-        $udatalimit = trim($row[4]);
-        $ucomment = trim($row[5]);
+        if (count($row) >= 3) {
+          $uname = trim($row[0]);
+          $upass = trim($row[1]);
+          $uprofile = trim($row[2]);
+          $utimelimit = isset($row[3]) ? trim($row[3]) : "";
+          $udatalimit = isset($row[4]) ? trim($row[4]) : "";
+          $ucomment = isset($row[5]) ? trim($row[5]) : "";
+        } else {
+          $scriptData = parseMikhmonScriptLine($row[0]);
+          if ($scriptData !== false) {
+            $uname = $scriptData["name"];
+            $upass = $scriptData["password"];
+            $uprofile = $scriptData["profile"];
+            $utimelimit = $scriptData["limit-uptime"];
+            $udatalimit = $scriptData["limit-bytes-total"];
+            $ucomment = $scriptData["comment"];
+          }
+        }
 
         if ($uname == "" || $uprofile == "") {
           $skipped++;
@@ -93,7 +143,7 @@ if (!isset($_SESSION["mikhmon"])) {
       fclose($handle);
       $message = "Imported: " . $imported . " | Skipped: " . $skipped;
     } else {
-      $message = "Failed to open CSV file.";
+      $message = "Failed to open file.";
     }
   }
 }
@@ -103,7 +153,7 @@ if (!isset($_SESSION["mikhmon"])) {
 <div class="col-12">
 <div class="card box-bordered">
   <div class="card-header">
-    <h3><i class="fa fa-upload"></i> Import Hotspot Users CSV</h3>
+    <h3><i class="fa fa-upload"></i> Import Hotspot Users (CSV/TXT)</h3>
   </div>
   <div class="card-body">
     <form method="post" enctype="multipart/form-data" action="">
@@ -112,9 +162,9 @@ if (!isset($_SESSION["mikhmon"])) {
         <button class="btn bg-primary" type="submit" name="importusers"><i class="fa fa-upload"></i> Import</button>
       </div>
       <div class="mr-b-10">
-        <input class="form-control" type="file" name="usercsv" accept=".csv,text/csv" required>
+        <input class="form-control" type="file" name="usercsv" accept=".csv,.txt,text/csv,text/plain" required>
       </div>
-      <small>Expected format: Username, Password, Profile, Time Limit, Data Limit, Comment</small>
+      <small>Expected format: CSV (Username, Password, Profile, Time Limit, Data Limit, Comment) or TXT script export from Mikhmon.</small>
     </form>
 
     <?php if ($message != "") { ?>
