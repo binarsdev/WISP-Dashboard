@@ -417,12 +417,11 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // remove enable disable ipbinding
-  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
-  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
-    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
+elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
+  echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
-    include_once('./process/pipbinding.php');
-  }
+  include_once('./process/pipbinding.php');
+}
 
 
 // remove user active
