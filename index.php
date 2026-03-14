@@ -88,11 +88,20 @@ if (!isset($_SESSION["mikhmon"])) {
   $removeuserprofile = $_GET['remove-user-profile'];
   $resethotspotuser = $_GET['reset-hotspot-user'];
   $removehotspotuserbycomment = $_GET['remove-hotspot-user-by-comment'];
+  $updatehotspotusercommentgroup = $_GET['update-hotspot-user-comment-group'];
+  $updatehotspotusertimelimitgroup = $_GET['update-hotspot-user-timelimit-group'];
+  $newcomment = $_GET['new-comment'];
+  $newtimelimit = $_GET['new-timelimit'];
   $removeexpiredhotspotuser = $_GET['remove-hotspot-user-expired'];
   $enablehotspotuser = $_GET['enable-hotspot-user'];
   $disablehotspotuser = $_GET['disable-hotspot-user'];
   $enableipbinding = $_GET['enable-ip-binding'];
   $disableipbinding = $_GET['disable-ip-binding'];
+  $updateipbinding = $_GET['update-ip-binding'];
+  $editipbinding = $_GET['edit-ip-binding'];
+  $setbindingmac = $_GET['set-binding-mac'];
+  $setbindingip = $_GET['set-binding-ip'];
+  $setbindingtype = $_GET['set-binding-type'];
   $userprofile = $_GET['user-profile'];
   $userprofilebyname = $_GET['user-profile'];
   $sys = $_GET['system'];
@@ -224,15 +233,20 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./hotspot/exportusers.php');
   }
 
+// import hotspot users
+  elseif ($hotspot == "import-users") {
+    include_once('./hotspot/importusers.php');
+  }
+
 // quick print
   elseif ($hotspot == "quick-print") {
     include_once('./hotspot/quickprint.php');
   }
 
 // quick print
-elseif ($hotspot == "list-quick-print") {
-  include_once('./hotspot/listquickprint.php');
-}  
+  elseif ($hotspot == "list-quick-print") {
+    include_once('./hotspot/listquickprint.php');
+  }
 
 // add hotspot user
   elseif ($hotspotuser == "add") {
@@ -268,6 +282,20 @@ elseif ($hotspot == "list-quick-print") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
     include_once('./process/removehotspotuserbycomment.php');
+  }
+
+// update hotspot user comment by group
+  elseif ($updatehotspotusercommentgroup != "") {
+    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
+
+    include_once('./process/updatehotspotusercommentgroup.php');
+  }
+
+// update hotspot user timelimit by group
+  elseif ($updatehotspotusertimelimitgroup != "") {
+    echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
+
+    include_once('./process/updatehotspotusertimelimitgroup.php');
   }
 
 // remove expired hotspot user
@@ -379,7 +407,7 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // remove enable disable ipbinding
-  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  elseif ($removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $updateipbinding != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
 
     include_once('./process/pipbinding.php');
@@ -414,14 +442,14 @@ elseif ($removeexpiredhotspotuser != "") {
   }
 
 // selling
-elseif ($report == "resume-report") {
-  include_once('./report/resumereport.php');
-}
+  elseif ($report == "resume-report") {
+    include_once('./report/resumereport.php');
+  }
 
 // selling
-elseif ($report == "export") {
-  include_once('./report/export.php');
-}
+  elseif ($report == "export") {
+    include_once('./report/export.php');
+  }
 
 // selling
   elseif ($removereport != "") {
@@ -464,9 +492,9 @@ elseif ($report == "export") {
   }
 
 // add ppp profile
-elseif ($ppp == "edit-profile") {
-  include_once('./ppp/profilebyname.php');
-}
+  elseif ($ppp == "edit-profile") {
+    include_once('./ppp/profilebyname.php');
+  }
 // remove enable disable profile
   elseif ($removepprofile != "") {
     echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Processing...</b>";
