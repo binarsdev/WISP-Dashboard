@@ -32,7 +32,7 @@ if (!isset($_SESSION["mikhmon"])) {
   } elseif ($hotspot == "quick-print" || $hotspot == "list-quick-print") {
     $squick = "active";
     $mpage = $_quick_print;   
-  } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $removehotspotuserbycomment != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
+  } elseif ($hotspot == "users" || $userbyprofile != "" || $hotspot == "export-users" || $hotspot == "import-users" || $removehotspotuserbycomment != "" || $updatehotspotusercommentgroup != "" || $updatehotspotusertimelimitgroup != "" || $removehotspotuser != "" || $removehotspotusers != "" || $disablehotspotuser || $enablehotspotuser != "") {
     $susersl = "active";
     $susers = "active";
     $mpage = $_users;
@@ -70,7 +70,7 @@ if (!isset($_SESSION["mikhmon"])) {
   } elseif ($minterface == "traffic-monitor") {
     $strafficmonitor = "active";
     $mpage = $_traffic_monitor;  
-  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "") {
+  } elseif ($hotspot == "ipbinding" || $hotspot == "binding" || $removeipbinding != "" || $enableipbinding != "" || $disableipbinding != "" || $editipbinding != "" || $updateipbinding != "") {
     $sipbind = "active";
     $mpage = $_ip_bindings;
     $ibmenu = "menu-open";
@@ -320,6 +320,18 @@ include('./info.php');
    <a href="./?hotspot=cookies&session=<?= $session; ?>" class="menu <?= $scookies; ?>"><i class=" fa fa-hourglass"></i> <?= $_hotspot_cookies ?></a>
   </div>
   <!--quick print-->
+  <div class="dropdown-btn <?= $mppp; ?>"><i class="fa fa-exchange"></i> PPPoE
+    <i class="fa fa-caret-down"></i>
+  </div>
+  <div class="dropdown-container <?= $pppmenu; ?>">
+    <a href="./?ppp=secrets&session=<?= $session; ?>" class="<?= $ssecrets; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i> <?= $_ppp_secrets ?> </a>
+    <a href="./?ppp=addsecret&session=<?= $session; ?>" class="<?= $ssecrets; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus"></i> <?= $_add ?> <?= $_ppp_secrets ?> </a>
+    <a href="./?ppp=profiles&session=<?= $session; ?>" class="<?= $spprofile; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-list"></i> <?= $_ppp_profiles ?> </a>
+    <a href="./?ppp=add-profile&session=<?= $session; ?>" class="<?= $spprofile; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square"></i> <?= $_add ?> <?= $_ppp_profiles ?> </a>
+    <a href="./?ppp=active&session=<?= $session; ?>" class="<?= $spactive; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-link"></i> <?= $_ppp_active ?> </a>
+  </div>
+
+  <!--quick print-->
   <a href="./?hotspot=quick-print&session=<?= $session; ?>" class="menu <?= $squick; ?>"> <i class="fa fa-print"></i> <?= $_quick_print ?> </a>
   <!--vouchers-->
   <a href="./?hotspot=users-by-profile&session=<?= $session; ?>" class="menu <?= $susersbp; ?>"> <i class="fa fa-ticket"></i> <?= $_vouchers ?> </a>
@@ -386,4 +398,3 @@ echo '<div class="main-container">';
   echo '<div class="main-container" style="display:none">';
 }
 ?>
-
