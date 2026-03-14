@@ -1,0 +1,12 @@
+<?php
+session_start();
+error_reporting(0);
+if ($enablesecr != "") {
+  $API->comm('/ppp/secret/set', array('.id'=>"$enablesecr", 'disabled'=>'no'));
+} elseif ($disablesecr != "") {
+  $API->comm('/ppp/secret/set', array('.id'=>"$disablesecr", 'disabled'=>'yes'));
+} elseif ($removesecr != "") {
+  $API->comm('/ppp/secret/remove', array('.id'=>"$removesecr"));
+}
+echo "<script>window.location='./?ppp=secrets&session=".$session."'</script>";
+?>
